@@ -1,0 +1,189 @@
+{
+    "type": "object",
+    "properties": {
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "ruleName": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "description": "An azure resource object",
+                    "properties": {
+                        "id": {
+                            "description": "Azure resource Id",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "location": {
+                            "description": "Resource location",
+                            "type": "string",
+                            "x-ms-mutability": [
+                                "create",
+                                "read"
+                            ]
+                        },
+                        "name": {
+                            "description": "Azure resource name",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "tags": {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "description": "Resource tags"
+                        },
+                        "type": {
+                            "description": "Azure resource type",
+                            "readOnly": true,
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "location"
+                    ],
+                    "x-ms-azure-resource": true,
+                    "type": "object"
+                }
+            ],
+            "description": "The Log Search Rule resource.",
+            "properties": {
+                "properties": {
+                    "description": "The rule properties of the resource.",
+                    "x-ms-client-flatten": true,
+                    "properties": {
+                        "action": {
+                            "description": "Action needs to be taken on rule execution.",
+                            "discriminator": {
+                                "propertyName": "odata.type"
+                            },
+                            "properties": {
+                                "odata_type": {
+                                    "description": "Specifies the action. Supported values - AlertingAction, LogToMetricAction",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "odata.type"
+                            ],
+                            "type": "object"
+                        },
+                        "description": {
+                            "description": "The description of the Log Search rule.",
+                            "type": "string"
+                        },
+                        "enabled": {
+                            "description": "The flag which indicates whether the Log Search rule is enabled. Value should be true or false",
+                            "enum": [
+                                "true",
+                                "false"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "enabled"
+                            }
+                        },
+                        "lastUpdatedTime": {
+                            "description": "Last time the rule was updated in IS08601 format.",
+                            "format": "date-time",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "provisioningState": {
+                            "description": "Provisioning state of the scheduled query rule",
+                            "enum": [
+                                "Succeeded",
+                                "Deploying",
+                                "Canceled",
+                                "Failed"
+                            ],
+                            "readOnly": true,
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "provisioningState"
+                            }
+                        },
+                        "schedule": {
+                            "description": "Schedule (Frequency, Time Window) for rule. Required for action type - AlertingAction",
+                            "properties": {
+                                "frequencyInMinutes": {
+                                    "description": "frequency (in minutes) at which rule condition should be evaluated.",
+                                    "format": "int32",
+                                    "type": "integer"
+                                },
+                                "timeWindowInMinutes": {
+                                    "description": "Time window for which data needs to be fetched for query (should be greater than or equal to frequencyInMinutes).",
+                                    "format": "int32",
+                                    "type": "integer"
+                                }
+                            },
+                            "required": [
+                                "frequencyInMinutes",
+                                "timeWindowInMinutes"
+                            ],
+                            "type": "object"
+                        },
+                        "source": {
+                            "description": "Data Source against which rule will Query Data",
+                            "properties": {
+                                "authorizedResources": {
+                                    "description": "List of  Resource referred into query",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "type": "array"
+                                },
+                                "dataSourceId": {
+                                    "description": "The resource uri over which log search query is to be run.",
+                                    "type": "string"
+                                },
+                                "query": {
+                                    "description": "Log search query. Required for action type - AlertingAction",
+                                    "type": "string"
+                                },
+                                "queryType": {
+                                    "description": "Set value to 'ResultCount' .",
+                                    "enum": [
+                                        "ResultCount"
+                                    ],
+                                    "type": "string",
+                                    "x-ms-enum": {
+                                        "modelAsString": true,
+                                        "name": "QueryType"
+                                    }
+                                }
+                            },
+                            "required": [
+                                "dataSourceId"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "source",
+                        "action"
+                    ]
+                }
+            },
+            "required": [
+                "properties"
+            ],
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

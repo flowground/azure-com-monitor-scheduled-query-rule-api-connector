@@ -1,0 +1,152 @@
+{
+    "title": "Microsoft Insights",
+    "description": "Azure Monitor client to create/update/delete Scheduled Query Rules",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/azure.com/monitor-scheduledQueryRule_API/2018-04-16/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://management.azure.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "azure_auth": {
+                "label": "Azure Active Directory OAuth2 Flow",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://login.microsoftonline.com/common/oauth2/authorize"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "ScheduledQueryRules_ListBySubscription": {
+            "main": "./lib/actions/ScheduledQueryRules_ListBySubscription.js",
+            "title": "List the Log Search rules within a subscription group.",
+            "description": "List the Log Search rules within a subscription group.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ScheduledQueryRules_ListBySubscription.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ScheduledQueryRules_ListByResourceGroup": {
+            "main": "./lib/actions/ScheduledQueryRules_ListByResourceGroup.js",
+            "title": "List the Log Search rules within a resource group.",
+            "description": "List the Log Search rules within a resource group.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ScheduledQueryRules_ListByResourceGroup.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ScheduledQueryRules_Delete": {
+            "main": "./lib/actions/ScheduledQueryRules_Delete.js",
+            "title": "Deletes a Log Search rule",
+            "description": "Deletes a Log Search rule",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ScheduledQueryRules_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ScheduledQueryRules_Get": {
+            "main": "./lib/actions/ScheduledQueryRules_Get.js",
+            "title": "Gets an Log Search rule",
+            "description": "Gets an Log Search rule",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ScheduledQueryRules_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ScheduledQueryRules_Update": {
+            "main": "./lib/actions/ScheduledQueryRules_Update.js",
+            "title": "Update log search Rule.",
+            "description": "Update log search Rule.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ScheduledQueryRules_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ScheduledQueryRules_CreateOrUpdate": {
+            "main": "./lib/actions/ScheduledQueryRules_CreateOrUpdate.js",
+            "title": "Creates or updates an log search rule.",
+            "description": "Creates or updates an log search rule.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ScheduledQueryRules_CreateOrUpdate.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
